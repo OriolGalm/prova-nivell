@@ -7,12 +7,18 @@ function submitCar() {
     var colorInput = document.getElementById("colorInput");
     //EX1. Validar los campos de matricula (formato: 1234ABC), marca y color, antes de hacer el new Car
     car = new Car(plateInput.value, colorInput.value, brandInput.value);
-    if (/^[0-9]{4}[A-Z]{3}$/.test(plateInput.value) == true && brandInput.value != '' && colorInput.value != '') {
-        showVehicle();
-        showWheelForm();
+    if (/^[0-9]{4}[A-Z]{3}$/.test(plateInput.value) != true) {
+        plateInput.style.border = "2px solid red";
+    }
+    else if (brandInput.value == '') {
+        brandInput.style.border = "2px solid red";
+    }
+    else if (colorInput.value == '') {
+        colorInput.style.border = "2px solid red";
     }
     else {
-        console.log("Error");
+        showVehicle();
+        showWheelForm();
     }
 }
 function showVehicle() {
@@ -32,35 +38,23 @@ function submitWheelForm() {
     for (var i = 1; i <= 4; i++) {
         var brandWheel = document.getElementById("brandWheel" + i);
         var diameterWheel = document.getElementById("diameterWheel" + i);
-        if (brandWheel.value != '') {
-            var wheel_generica = new Wheel(Number(diameterWheel.value), brandWheel.value);
-            brandWheel.style.border = "2px solid green";
-            car.addWheel(wheel_generica);
-        }
-        else {
-            console.log("Error");
+        if (brandWheel.value == '') {
             errores = 1;
             brandWheel.style.border = " 2px solid red";
         }
-        if (diameterWheel.value != '') {
-            var wheel_generica = new Wheel(Number(diameterWheel.value), brandWheel.value);
-            diameterWheel.style.border = "2px solid green";
-            car.addWheel(wheel_generica);
-        }
-        else {
-            console.log("Error");
+        else if (diameterWheel.value == '') {
             errores = 1;
             diameterWheel.style.border = " 2px solid red";
         }
-        if (parseInt(diameterWheel.value) <= 2 && parseInt(diameterWheel.value) >= 1) {
-            var wheel_generica = new Wheel(Number(diameterWheel.value), brandWheel.value);
-            diameterWheel.style.border = "2px solid green";
-            car.addWheel(wheel_generica);
+        else if (parseInt(diameterWheel.value) > 2 || parseInt(diameterWheel.value) < 1) {
+            errores = 1;
+            diameterWheel.style.border = " 2px solid red";
         }
         else {
-            console.log("Error");
-            errores = 1;
-            diameterWheel.style.border = "2px solid red";
+            diameterWheel.style.border = " 2px solid green";
+            brandWheel.style.border = " 2px solid green";
+            var wheel_generica = new Wheel(Number(diameterWheel.value), brandWheel.value);
+            car.addWheel(wheel_generica);
         }
     }
     console.log(car);

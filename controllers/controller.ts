@@ -9,11 +9,15 @@ function submitCar() {
 
 	//EX1. Validar los campos de matricula (formato: 1234ABC), marca y color, antes de hacer el new Car
 	car = new Car(plateInput.value, colorInput.value, brandInput.value);
-    if( /^[0-9]{4}[A-Z]{3}$/.test(plateInput.value) == true && brandInput.value != '' && colorInput.value != '' ){
+    if( /^[0-9]{4}[A-Z]{3}$/.test(plateInput.value) != true){
+        plateInput.style.border = "2px solid red";
+    }else if(brandInput.value == ''){
+        brandInput.style.border = "2px solid red";
+    }else if(colorInput.value == ''){
+        colorInput.style.border = "2px solid red";
+    }else{
         showVehicle();
         showWheelForm();
-    }else{
-        console.log("Error");
     }
    
 }
@@ -40,41 +44,25 @@ function submitWheelForm() {
 	for (let i = 1; i <= 4; i++) {
 		let brandWheel = <HTMLInputElement>document.getElementById("brandWheel" + i);
 		let diameterWheel = <HTMLInputElement>document.getElementById("diameterWheel" + i);
+        
 
-        if(brandWheel.value != ''){
-
-            let wheel_generica = new Wheel(Number(diameterWheel.value), brandWheel.value);
-            brandWheel.style.border = "2px solid green";
-            car.addWheel(wheel_generica);
-        }else{
-            console.log("Error");
+        if(brandWheel.value == '' ){
             errores = 1;
-            brandWheel.style.border = " 2px solid red";
-        }
-        if(diameterWheel.value != ''){
-
-            let wheel_generica = new Wheel(Number(diameterWheel.value), brandWheel.value);
-            diameterWheel.style.border = "2px solid green";
-            car.addWheel(wheel_generica);
-        }else{
-            console.log("Error");
+            brandWheel.style.border = " 2px solid red"
+        }else if(diameterWheel.value == ''){
             errores = 1;
             diameterWheel.style.border = " 2px solid red";
-        }
-
-        if(parseInt(diameterWheel.value) <= 2 && parseInt(diameterWheel.value) >= 1 ){
-
-            let wheel_generica = new Wheel(Number(diameterWheel.value), brandWheel.value);
-            diameterWheel.style.border = "2px solid green";
-            car.addWheel(wheel_generica);
-        }else{
-            console.log("Error");
+        }else if(parseInt(diameterWheel.value) > 2 || parseInt(diameterWheel.value) < 1){
             errores = 1;
-            diameterWheel.style.border = "2px solid red";
-        }        
+            diameterWheel.style.border = " 2px solid red";
+        }else{
+            diameterWheel.style.border = " 2px solid green";
+            brandWheel.style.border = " 2px solid green";
+            let wheel_generica = new Wheel(Number(diameterWheel.value), brandWheel.value);
+            car.addWheel(wheel_generica);
+        }     
+         
 	}
-
-
 	console.log(car)
     if(errores == 0){
 	    showWheels();
@@ -83,21 +71,22 @@ function submitWheelForm() {
 }
 
 function showWheels() {
+    
 	//EX4. Optimizar la función showWheels
     let wheelTitle = <HTMLInputElement>document.getElementById("wheelTitle");
-    for(let i = 0; i < 4; i++){
-    let wheelOutput1 = <HTMLInputElement>document.getElementById("wheelOutput[i]");
-   /*  let wheelOutput2 = <HTMLInputElement>document.getElementById("wheelOutput2");
+    
+    let wheelOutput1 = <HTMLInputElement>document.getElementById("wheelOutput1") ;
+    let wheelOutput2 = <HTMLInputElement>document.getElementById("wheelOutput2");
     let wheelOutput3 = <HTMLInputElement>document.getElementById("wheelOutput3");
     let wheelOutput4 = <HTMLInputElement>document.getElementById("wheelOutput4");
-     */
-
+    
+    
     wheelTitle.innerText = "Wheels:";
-    wheelOutput1.innerText = "Wheel 1:  " + "Brand: " + car.wheels[0].brand + "  Diameter: " + car.wheels[i].diameter;
-   /*  wheelOutput2.innerText = "Wheel 2:  " + "Brand: " + car.wheels[1].brand + "  Diameter: " + car.wheels[1].diameter;
+    wheelOutput1.innerText = "Wheel 1:  " + "Brand: " + car.wheels[0].brand + "  Diameter: " + car.wheels[0].diameter;
+    wheelOutput2.innerText = "Wheel 2:  " + "Brand: " + car.wheels[1].brand + "  Diameter: " + car.wheels[1].diameter;
     wheelOutput3.innerText = "Wheel 3:  " + "Brand: " + car.wheels[2].brand + "  Diameter: " + car.wheels[2].diameter;
-    wheelOutput4.innerText = "Wheel 4:  " + "Brand: " + car.wheels[3].brand + "  Diameter: " + car.wheels[3].diameter; */
-    }
+    wheelOutput4.innerText = "Wheel 4:  " + "Brand: " + car.wheels[3].brand + "  Diameter: " + car.wheels[3].diameter;
+    
 }
 
 

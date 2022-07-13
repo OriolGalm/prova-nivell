@@ -85,16 +85,19 @@ function submitWheelForm() {
 function showWheels() {
 	//EX4. Optimizar la función showWheels
     let wheelTitle = <HTMLInputElement>document.getElementById("wheelTitle");
-    let wheelOutput1 = <HTMLInputElement>document.getElementById("wheelOutput1");
-    let wheelOutput2 = <HTMLInputElement>document.getElementById("wheelOutput2");
+    for(let i = 0; i < 4; i++){
+    let wheelOutput1 = <HTMLInputElement>document.getElementById("wheelOutput[i]");
+   /*  let wheelOutput2 = <HTMLInputElement>document.getElementById("wheelOutput2");
     let wheelOutput3 = <HTMLInputElement>document.getElementById("wheelOutput3");
     let wheelOutput4 = <HTMLInputElement>document.getElementById("wheelOutput4");
+     */
 
     wheelTitle.innerText = "Wheels:";
-    wheelOutput1.innerText = "Wheel 1:  " + "Brand: " + car.wheels[0].brand + "  Diameter: " + car.wheels[0].diameter;
-    wheelOutput2.innerText = "Wheel 2:  " + "Brand: " + car.wheels[1].brand + "  Diameter: " + car.wheels[1].diameter;
+    wheelOutput1.innerText = "Wheel 1:  " + "Brand: " + car.wheels[0].brand + "  Diameter: " + car.wheels[i].diameter;
+   /*  wheelOutput2.innerText = "Wheel 2:  " + "Brand: " + car.wheels[1].brand + "  Diameter: " + car.wheels[1].diameter;
     wheelOutput3.innerText = "Wheel 3:  " + "Brand: " + car.wheels[2].brand + "  Diameter: " + car.wheels[2].diameter;
-    wheelOutput4.innerText = "Wheel 4:  " + "Brand: " + car.wheels[3].brand + "  Diameter: " + car.wheels[3].diameter;
+    wheelOutput4.innerText = "Wheel 4:  " + "Brand: " + car.wheels[3].brand + "  Diameter: " + car.wheels[3].diameter; */
+    }
 }
 
 
